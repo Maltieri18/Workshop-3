@@ -8,11 +8,10 @@ public class FigureEight : MonoBehaviour
     [Range(0.0f, 1000.0f)] public float speed = 100.0f;
     private Vector3 startPos;
     private Vector3 anchor;
-    private int times = 0;
     void Start()
     {
-        startPos = new Vector3(0.0f, 0.0f, 0.0f);
-        anchor = startPos + new Vector3(5.0f, 0.0f, 0.0f);
+        startPos = transform.parent.position;
+        anchor = startPos + new Vector3(5.0f, 0.0f, 0.0f); //radius is the norm
     }
 
     // Update is called once per frame
@@ -20,9 +19,8 @@ public class FigureEight : MonoBehaviour
     {   
         //Debug.Log(startPos.ToString() + "   " + transform.position.ToString());
         transform.RotateAround(anchor, Vector3.up, speed * Time.deltaTime);
-        if(Mathf.FloorToInt(transform.position.x) == startPos.x && Mathf.FloorToInt(transform.position.z) == startPos.x) {
-            Debug.Log("We hit starting pos " + times.ToString() + "times!");
-            times += 1;
+        if(Mathf.Round(transform.position.x) == startPos.x && Mathf.Round(transform.position.z) == startPos.z) {
+            anchor *= -1;
         }
     }
 }
